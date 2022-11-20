@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -19,7 +19,7 @@ import { NavComponent } from 'src/shared/nav/nav.component';
 import { TituloComponent } from 'src/shared/titulo/titulo.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 
-import { EventoService } from './services/evento.service';
+import { EventoService } from '@app/services/evento.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { ContatosComponent } from './components/contatos/contatos.component';
@@ -54,6 +54,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),

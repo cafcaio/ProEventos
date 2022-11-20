@@ -490,3 +490,6 @@ Thumbs.db
 *.db
 *.db-shm
 *.db-wal
+
+#Exclusão assets
+/Front/ProEventos-App/src/assets/
