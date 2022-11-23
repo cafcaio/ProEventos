@@ -6,7 +6,7 @@ namespace ProEventos.Application.Dto
     {
         public int Id { get; set; }
         public string Local { get; set; }
-        public string? DataEvento { get; set; }
+        public DateTime? DataEvento { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório."),
         //MinLength(4, ErrorMessage = "{0} deve ter no mínimo 4 caracteres."),
@@ -21,7 +21,7 @@ namespace ProEventos.Application.Dto
         ErrorMessage = "Nome da imagem é inválido. São aceitos os formatos gif, jpg, jpeg, bmp e png.")]
         public string ImagemURL { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
-        [Phone(ErrorMessage = "O {0} inserido é inválido.")]
+        [RegularExpression(@"^[0-9]{10,11}$", ErrorMessage = "O {0} inserido é inválido.")]
         public string Telefone { get; set; }
         
         [Display(Name ="e-mail"),

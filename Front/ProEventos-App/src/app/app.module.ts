@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './components/eventos/eventos.component';
@@ -21,7 +24,7 @@ import { EventoDetalheComponent } from './components/eventos/evento-detalhe/even
 
 import { EventoService } from '@app/services/evento.service';
 
-import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { DateFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
@@ -29,13 +32,15 @@ import { EventoListaComponent } from './components/eventos/evento-lista/evento-l
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { DatePipe } from '@angular/common';
 
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [ //components, directives and pipes
     AppComponent,
     NavComponent,
-    DateTimeFormatPipe,
+    DateFormatPipe,
     TituloComponent,
     ContatosComponent,
     DashboardComponent,
@@ -46,7 +51,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
     EventoListaComponent,
     UserComponent,
     LoginComponent,
-    RegistrationComponent,
+    RegistrationComponent
    ],
   imports: [ //modules
     BrowserModule,
@@ -65,10 +70,13 @@ import { RegistrationComponent } from './components/user/registration/registrati
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule.forRoot({type: 'ball-scale-multiple'})
+    NgxSpinnerModule.forRoot({type: 'ball-scale-multiple'}),
+    BsDatepickerModule.forRoot()
   ],
-  providers: [EventoService],
+  providers: [EventoService, DateFormatPipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+
+}

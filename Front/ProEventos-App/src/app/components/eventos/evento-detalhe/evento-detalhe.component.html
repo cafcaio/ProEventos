@@ -4,7 +4,8 @@
 
 <form class="row gy-4 p-3" [formGroup]="form">
   <!-- <p>Form value: {{form.value | json}}</p>
-  <p>Form value: {{form.status | json}}</p> -->
+  <p>Form value: {{form.status | json}}</p>
+  <p>{{_eventoNaTela.dataEvento}}</p> -->
 
       <div class="col-md-12">
         <label>Tema</label>
@@ -28,7 +29,11 @@
       </div>
       <div class="col-md-4">
         <label>Data e Hora</label>
-        <input type="datetime" [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}" class="form-control is-invalid" formControlName= "dataEvento" placeholder="">
+        <input type="datetime" [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
+        class="form-control is-invalid"
+        formControlName= "dataEvento"
+        placeholder=""
+        bsDatepicker [bsConfig]="bsconfig">
         <div class="invalid-feedback">
           Data e Hora é obrigatório
         </div>
@@ -46,8 +51,11 @@
       <div class="col-md-2">
         <label>Telefone</label>
         <input type="text" [ngClass]="{'is-invalid': f.telefone.errors && f.telefone.touched}" class="form-control is-invalid" formControlName= "telefone" placeholder="(000) 90000-0000">
-        <div class="invalid-feedback">
+        <div class="invalid-feedback" *ngIf="f.telefone.hasError('required')">
           Telefone é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="f.telefone.hasError('pattern')">
+          Telefone adicionado é inválido
         </div>
       </div>
       <div class="col-md-4">
@@ -63,8 +71,11 @@
       <div class="col-md-4">
         <label>Imagem</label>
         <input type="text" [ngClass]="{'is-invalid': f.imagemURL.errors && f.imagemURL.touched}" class="form-control is-invalid" formControlName= "imagemURL" placeholder="caminho">
-        <div class="invalid-feedback">
+        <div class="invalid-feedback" *ngIf="f.imagemURL.hasError('required')">
           Imagem é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="f.imagemURL.hasError('pattern')">
+          Imagem inválida
         </div>
       </div>
 
@@ -75,7 +86,7 @@
     <button class="btn btn-outline-secondary ms-auto border" (click)="resetForm()">
       Limpar
     </button>
-    <button class="btn btn-success ms-2" [disabled]="!form.valid">
+    <button class="btn btn-success ms-2" [disabled]="!form.valid" (click)="salvarAlteracao()">
       <!-- <span class="spinner-border spinner-border-sm"></span> -->
       Salvar
     </button>

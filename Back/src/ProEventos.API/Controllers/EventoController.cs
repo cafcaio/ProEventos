@@ -27,15 +27,13 @@ public class EventoController : ControllerBase
             var eventos = await _eventoService.GetAllEventosAsync(true);
             if (eventos == null) return NoContent();
 
-
-
             return Ok(eventos);
         }
         catch (Exception ex)
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"});
         }
     }
 
@@ -54,7 +52,7 @@ public class EventoController : ControllerBase
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"});
         }
     }
 
@@ -73,7 +71,7 @@ public class EventoController : ControllerBase
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"});
         }
     }
 
@@ -84,7 +82,7 @@ public class EventoController : ControllerBase
         try
         {
             var evento = await _eventoService.AddEvento(model);
-            if (evento == null) return BadRequest("Erro ao adicionar evento.");
+            if (evento == null) return BadRequest(new {message = "Erro ao adicionar evento."});
 
             return Ok(evento);
         }
@@ -92,7 +90,7 @@ public class EventoController : ControllerBase
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar adicionar eventos. Erro: {ex.Message}"});
         }
 
     }
@@ -104,7 +102,7 @@ public class EventoController : ControllerBase
         try
         {
             var evento = await _eventoService.UpdateEvento(id, model);
-            if (evento == null) return BadRequest("Evento com este ID não foi encontrado.");
+            if (evento == null) return BadRequest(new {message = "Evento com este ID não foi encontrado."});
 
             return Ok(evento);
         }
@@ -112,7 +110,7 @@ public class EventoController : ControllerBase
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar atualizar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar atualizar eventos. Erro: {ex.Message}"});
         }
     }
 
@@ -123,9 +121,9 @@ public class EventoController : ControllerBase
         try
         {
             if (await _eventoService.DeleteEvento(id)){
-                return Ok($"Evento com ID {id} deletado.");
+                return Ok(new {message = $"Evento com ID {id} deletado."});
             } 
-            return BadRequest("Não foi possível deletar o evento.");
+            return BadRequest(new {message = "Não foi possível deletar o evento."});
             
 
         }
@@ -133,7 +131,7 @@ public class EventoController : ControllerBase
         {
             
             return this.StatusCode(StatusCodes.Status500InternalServerError,
-            $"Erro ao tentar deletar eventos. Erro: {ex.Message}");
+            new {message = $"Erro ao tentar deletar eventos. Erro: {ex.Message}"});
         }
     }
 }

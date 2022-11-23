@@ -18,6 +18,7 @@ export class EventoListaComponent implements OnInit {
 
   public eventos: Evento[] = [];
   public eventosFiltrados: Evento[] = [];
+  public eventoToDelete: number = 0;
 
   public isCollapsed: boolean = false;
   private _filtroLista: string = "";
@@ -69,13 +70,30 @@ export class EventoListaComponent implements OnInit {
 
   }
 
-  openModal(template: TemplateRef<any>): void {
+  openModal(event: any, template: TemplateRef<any>, eventoId: number): void {
+    event.stopPropagation();
+    this.eventoToDelete = eventoId;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   confirm(): void {
     this.modalRef?.hide();
-    this.toastr.success('Evento excluído.');
+    this.spinner.show();
+    this.eventoService.deleteEvento(this.eventoToDelete).subscribe({
+      next: (s: any) => {
+        this.toastr.success('Evento excluído.');
+        this.getEventos();
+      },
+      error: (er: Error) => {
+        this.spinner.hide();
+        this.toastr.error('Erro ao excluir evento.');
+        console.log(er);
+      },
+      complete: () => {
+        this.spinner.hide();
+      }
+    });
+
   }
 
   decline(): void {
